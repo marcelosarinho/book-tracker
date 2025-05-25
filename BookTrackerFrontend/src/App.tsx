@@ -57,8 +57,6 @@ function App() {
     const response = await fetch(`http://localhost:5040/api/books/${id}`);
     const data = await response.json();
 
-    console.log(data);
-
     setBook(data);
     setIsOpenCreateDialog(true);
   }
