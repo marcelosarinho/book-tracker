@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/marcelo/Desktop/Projetos/BookTrackerApi/BookTrackerApi.csproj": {}
+    "/Users/marcelo/Desktop/Projetos/book-tracker/BookTrackerApi/BookTrackerApi.csproj": {}
   },
   "projects": {
-    "/Users/marcelo/Desktop/Projetos/BookTrackerApi/BookTrackerApi.csproj": {
+    "/Users/marcelo/Desktop/Projetos/book-tracker/BookTrackerApi/BookTrackerApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/marcelo/Desktop/Projetos/BookTrackerApi/BookTrackerApi.csproj",
+        "projectUniqueName": "/Users/marcelo/Desktop/Projetos/book-tracker/BookTrackerApi/BookTrackerApi.csproj",
         "projectName": "BookTrackerApi",
-        "projectPath": "/Users/marcelo/Desktop/Projetos/BookTrackerApi/BookTrackerApi.csproj",
+        "projectPath": "/Users/marcelo/Desktop/Projetos/book-tracker/BookTrackerApi/BookTrackerApi.csproj",
         "packagesPath": "/Users/marcelo/.nuget/packages/",
-        "outputPath": "/Users/marcelo/Desktop/Projetos/BookTrackerApi/obj/",
+        "outputPath": "/Users/marcelo/Desktop/Projetos/book-tracker/BookTrackerApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/marcelo/.nuget/NuGet/NuGet.Config"

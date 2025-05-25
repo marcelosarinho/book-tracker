@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ToxwGpa5DXU=",
+  "dgSpecHash": "d0Ncdh7JYPc=",
   "success": true,
-  "projectFilePath": "/Users/marcelo/Desktop/Projetos/BookTrackerApi/BookTrackerApi.csproj",
+  "projectFilePath": "/Users/marcelo/Desktop/Projetos/book-tracker/BookTrackerApi/BookTrackerApi.csproj",
   "expectedPackageFiles": [
     "/Users/marcelo/.nuget/packages/microsoft.entityframeworkcore/9.0.5/microsoft.entityframeworkcore.9.0.5.nupkg.sha512",
     "/Users/marcelo/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.5/microsoft.entityframeworkcore.abstractions.9.0.5.nupkg.sha512",
