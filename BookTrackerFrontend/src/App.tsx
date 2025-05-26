@@ -1,6 +1,7 @@
 import { BookOpen, CircleCheck, CircleX, Eye, Pencil, Plus, Star, Trash } from 'lucide-react'
 import './style.css'
 import { useEffect, useState } from 'react'
+import { Modal } from '../components/Modal'
 
 type Book = {
   id: number;
@@ -151,12 +152,13 @@ function App() {
   return (
     <main className='min-h-svh lg:px-14 md:px-10 px-6 lg:py-6 md:py-4 py-2'>
       {isOpenCreateDialog && (
-        <dialog className='block top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/70 p-6 z-10 size-full'>
-          <div className='bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-md lg:w-1/2 md:w-2/3 w-full'>
-            <form onSubmit={handleSubmitBook}>
-              <h2 className='text-lg font-bold'>{book.id ? 'Editar Livro' : 'Adicionar Livro'}</h2>
-              <p className='text-sm text-zinc-500'>{book.id ? 'Edite os detalhes do livro da sua coleção.' : 'Adicione um novo livro à sua coleção.'} Preencha os detalhes abaixo.</p>
-
+        <Modal>
+          <Modal.Header>
+            <Modal.Title>{book.id ? 'Editar Livro' : 'Adicionar Livro'}</Modal.Title>
+            <Modal.Description>{book.id ? 'Edite os detalhes do livro da sua coleção.' : 'Adicione um novo livro à sua coleção.'} Preencha os detalhes abaixo.</Modal.Description>
+          </Modal.Header>
+          <Modal.Body>
+            <form id='create-book-form' onSubmit={handleSubmitBook}>
               <div className="grid gap-4 mt-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -219,26 +221,25 @@ function App() {
                   </div>
                 </div>
               </div>
-
-              <div className='flex gap-2 mt-6 justify-end'>
-                <button
-                  type="button"
-                  onClick={() => setIsOpenCreateDialog(false)}
-                  className='border border-zinc-200 text-sm font-medium px-3 py-2 rounded hover:bg-zinc-200 hover:text-zinc-700 transition-colors hover:cursor-pointer'>
-                  Cancelar
-                </button>
-                <button type="submit" className='bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
-                  {book.id ? 'Editar' : 'Adicionar'} livro
-                </button>
-              </div>
             </form>
-          </div>
-        </dialog>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              type="button"
+              onClick={() => setIsOpenCreateDialog(false)}
+              className='border border-zinc-200 text-sm font-medium px-3 py-2 rounded hover:bg-zinc-200 hover:text-zinc-700 transition-colors hover:cursor-pointer'>
+              Cancelar
+            </button>
+            <button form='create-book-form' type="submit" className='bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
+              {book.id ? 'Editar' : 'Adicionar'} livro
+            </button>
+          </Modal.Footer>
+        </Modal>
       )}
 
       {isOpenSuccessDialog && (
-        <dialog className='block top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/70 p-6 z-10 size-full text-center'>
-          <div className='bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-md lg:w-1/2 md:w-2/3 w-full'>
+        <Modal className='text-center'>
+          <Modal.Body>
             <div className='flex justify-center mb-4'>
               <CircleCheck stroke='#00c950' strokeWidth={2} size={100} />
             </div>
@@ -248,13 +249,13 @@ function App() {
             <button onClick={() => setIsOpenSuccessDialog(false)} className='mt-4 bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
               Fechar
             </button>
-          </div>
-        </dialog>
+          </Modal.Body>
+        </Modal>
       )}
 
       {isOpenErrorDialog && (
-        <dialog className='block top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/70 p-6 z-10 size-full text-center'>
-          <div className='bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-md lg:w-1/2 md:w-2/3 w-full'>
+        <Modal className='text-center'>
+          <Modal.Body>
             <div className='flex justify-center mb-4'>
               <CircleX stroke='#fb2c36' strokeWidth={2} size={100} />
             </div>
@@ -264,8 +265,8 @@ function App() {
             <button onClick={() => setIsOpenErrorDialog(false)} className='mt-4 bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
               Fechar
             </button>
-          </div>
-        </dialog>
+          </Modal.Body>
+        </Modal>
       )}
 
       {isOpenDeleteDialog && (

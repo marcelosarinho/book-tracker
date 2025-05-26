@@ -8,6 +8,10 @@ builder.Services.AddDbContext<BookTrackerContext>(options =>
     options.UseInMemoryDatabase("BookTracker"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5040);
+});
 
 var app = builder.Build();
 
