@@ -11,7 +11,7 @@ const sizes = {
 }
 
 export function Button(props: ComponentProps<'button'> & { variant?: 'primary' | 'outlined', size?: 'small' | 'medium' }) {
-  const { children, className, id, variant = 'primary', size = 'medium', ...rest } = props;
+  const { children, className = '', id, variant = 'primary', size = 'medium', ...rest } = props;
 
   return (
     <button id={id} {...rest} className={`text-sm font-medium rounded hover:cursor-pointer transition-colors ${variants[variant]} ${sizes[size]} ${className}`}>
@@ -21,10 +21,10 @@ export function Button(props: ComponentProps<'button'> & { variant?: 'primary' |
 }
 
 export function IconButton(props: ComponentProps<'button'>) {
-  const { children, id, ...rest } = props;
+  const { children, id, className = '', ...rest } = props;
 
   return (
-    <button id={id} {...rest} className='p-2 rounded-md hover:bg-zinc-200 hover:cursor-pointer transition-colors'>
+    <button id={id} {...rest} className={`p-2 rounded-md hover:bg-zinc-200 hover:cursor-pointer transition-colors ${className}`}> 
       {children}
     </button>
   )

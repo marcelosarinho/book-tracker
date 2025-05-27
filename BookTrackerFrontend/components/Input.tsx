@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 
 export function Input(props: ComponentProps<'input'>) {
-  const { id, name, value, onChange, className, ...rest } = props;
+  const { id, name, value, onChange, className = '', ...rest } = props;
 
   return (
     <input
