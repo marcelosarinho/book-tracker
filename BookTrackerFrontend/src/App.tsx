@@ -6,6 +6,7 @@ import { Button, IconButton } from '../components/Button';
 import { Label } from '../components/Label';
 import { Input } from '../components/Input';
 import { Select } from '../components/Select';
+import { Table } from '../components/Table';
 
 type Book = {
   id: number;
@@ -256,6 +257,7 @@ function App() {
             <h2 className='text-lg font-bold'>{successMessage}</h2>
             <p className='text-sm text-zinc-500'>{successDescription}</p>
             <Button
+              className='mt-3'
               variant='primary'
               size='small'
               onClick={() => setIsOpenSuccessDialog(false)}>
@@ -340,7 +342,7 @@ function App() {
 
               <div className="grid grid-cols-2 gap-2">
                 <div className='text-sm'>
-                  <Label className='text-zinc-500' htmlFor='status'>Status</Label>
+                  <Label className='text-zinc-500 mb-2' htmlFor='status'>Status</Label>
                   <span className={`${StatusColors[Number(book.status)]} px-2 py-1 rounded`}>{Status[Number(book.status)]}</span>
                 </div>
 
@@ -392,36 +394,36 @@ function App() {
 
         <div className='mt-6'>
           <div className='overflow-auto rounded-md border border-zinc-200'>
-            <table className='w-full'>
-              <thead className='border-b border-zinc-200'>
-                <tr className='hover:bg-zinc-100 transition-colors text-sm text-zinc-500'>
-                  <th className='font-medium px-4 h-12 text-left'>Nome</th>
-                  <th className='font-medium px-4 h-12 text-left'>Autor(a)</th>
-                  <th className='font-medium px-4 h-12 text-left'>Gênero</th>
-                  <th className='font-medium px-4 h-12 text-left'>Páginas</th>
-                  <th className='font-medium px-4 h-12 text-left'>Página atual</th>
-                  <th className='font-medium px-4 h-12 text-left'>Status</th>
-                  <th className='font-medium px-4 h-12 text-left'>Avaliação</th>
-                  <th className='font-medium px-4 h-12 text-right'>Ações</th>
-                </tr>
-              </thead>
-              <tbody className='text-sm font-medium [&_tr:last-child]:border-0'>
+            <Table>
+              <Table.Head>
+                <Table.Row className='text-sm text-zinc-500'>
+                  <Table.HeadCell className='text-left'>Nome</Table.HeadCell>
+                  <Table.HeadCell className='text-left'>Autor(a)</Table.HeadCell>
+                  <Table.HeadCell className='text-left'>Gênero</Table.HeadCell>
+                  <Table.HeadCell className='text-left'>Páginas</Table.HeadCell>
+                  <Table.HeadCell className='text-left'>Página atual</Table.HeadCell>
+                  <Table.HeadCell className='text-left'>Status</Table.HeadCell>
+                  <Table.HeadCell className='text-left'>Avaliação</Table.HeadCell>
+                  <Table.HeadCell className='text-right'>Ações</Table.HeadCell>
+                </Table.Row>
+              </Table.Head>
+              <Table.Body className='text-sm font-medium'>
                 {books.length === 0 ? (
-                  <tr className='border-b border-zinc-200 hover:bg-zinc-100 transition-colors'>
-                    <td colSpan={8} className='p-4 text-center'>Nenhum livro registrado</td>
-                  </tr>
+                  <Table.Row>
+                    <Table.Data colSpan={8} className='p-4 text-center'>Nenhum livro registrado</Table.Data>
+                  </Table.Row>
                 ) : (
                   books.map(book => (
-                    <tr key={book.id} className='border-b border-zinc-200 hover:bg-zinc-100 transition-colors'>
-                      <td className='p-4'>{book.title}</td>
-                      <td className='p-4'>{book.author}</td>
-                      <td className='p-4'>{book.genre}</td>
-                      <td className='p-4'>{book.pages}</td>
-                      <td className='p-4'>{book.currentPage}</td>
-                      <td className='p-4'>
+                    <Table.Row key={book.id}>
+                      <Table.Data>{book.title}</Table.Data>
+                      <Table.Data>{book.author}</Table.Data>
+                      <Table.Data>{book.genre}</Table.Data>
+                      <Table.Data>{book.pages}</Table.Data>
+                      <Table.Data>{book.currentPage}</Table.Data>
+                      <Table.Data>
                         <span className={`p-2 rounded-md text-xs ${StatusColors[Number(book.status)]}`}>{Status[Number(book.status)]}</span>
-                      </td>
-                      <td className='p-4'>
+                      </Table.Data>
+                      <Table.Data>
                         <div className='flex gap-1'>
                           {[1, 2, 3, 4, 5].map((ratingNumber) => (
                             <Star
@@ -432,8 +434,8 @@ function App() {
                             />
                           ))}
                         </div>
-                      </td>
-                      <td className='p-4 flex justify-end gap-2'>
+                      </Table.Data>
+                      <Table.Data className='flex justify-end gap-2'>
                         <IconButton onClick={() => {
                           setBook(book);
                           setIsOpenViewDialog(true);
@@ -450,12 +452,12 @@ function App() {
                           }}>
                           <Trash size={17}/>
                         </IconButton>
-                      </td>
-                    </tr>
+                      </Table.Data>
+                    </Table.Row>
                   ))
                 )}
-              </tbody>
-            </table>
+              </Table.Body>
+            </Table>
           </div>
         </div>
       </section>
