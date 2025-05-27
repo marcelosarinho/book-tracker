@@ -1,8 +1,10 @@
-import { BookOpen, CircleCheck, CircleX, Eye, Pencil, Plus, Star, Trash } from 'lucide-react'
-import './style.css'
-import { useEffect, useState } from 'react'
-import { Modal } from '../components/Modal'
-import { Button, IconButton } from '../components/Button'
+import { BookOpen, CircleCheck, CircleX, Eye, Pencil, Plus, Star, Trash } from 'lucide-react';
+import './style.css';
+import { useEffect, useState } from 'react';
+import { Modal } from '../components/Modal';
+import { Button, IconButton } from '../components/Button';
+import { Label } from '../components/Label';
+import { Input } from '../components/Input';
 
 type Book = {
   id: number;
@@ -163,31 +165,31 @@ function App() {
               <div className="grid gap-4 mt-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className='text-sm font-medium block' htmlFor="title">Livro</label>
-                    <input id='title' name='title' value={book.title} onChange={handleChangeInput} className='mt-2 text-sm w-full p-2 rounded-md border border-zinc-200' type="text" placeholder='Livro' />
+                    <Label htmlFor="title">Livro</Label>
+                    <Input type='text' placeholder='Digite o nome do livro' id='title' name='title' value={book.title} onChange={handleChangeInput} className='mt-2' />
                   </div>
                   <div>
-                    <label className='text-sm font-medium block' htmlFor="author">Autor(a)</label>
-                    <input id='author' name='author' value={book.author} onChange={handleChangeInput} className='mt-2 text-sm w-full p-2 rounded-md border border-zinc-200' type="text" placeholder='Autor(a)' />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className='text-sm font-medium block' htmlFor="genre">Gênero</label>
-                    <input id='genre' name='genre' value={book.genre} onChange={handleChangeInput} className='mt-2 text-sm w-full p-2 rounded-md border border-zinc-200' type="text" placeholder='Gênero' />
-                  </div>
-                  <div>
-                    <label className='text-sm font-medium block' htmlFor="pages">Páginas</label>
-                    <input id='pages' name='pages' value={book.pages} onChange={handleChangeInput} className='mt-2 text-sm w-full p-2 rounded-md border border-zinc-200' type="number" placeholder='Páginas' />
+                    <Label htmlFor="author">Autor(a)</Label>
+                    <Input type='text' placeholder='Digite o nome do autor(a)' id='author' name='author' value={book.author} onChange={handleChangeInput} className='mt-2' />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className='text-sm font-medium block' htmlFor="currentPage">Página atual</label>
-                    <input id='currentPage' name='currentPage' value={book.currentPage} onChange={handleChangeInput} className='mt-2 text-sm w-full p-2 rounded-md border border-zinc-200' type="number" placeholder='Página atual' />
+                    <Label htmlFor="genre">Gênero</Label>
+                    <Input type='text' placeholder='Digite o gênero do livro' id='genre' name='genre' value={book.genre} onChange={handleChangeInput} className='mt-2' />
                   </div>
                   <div>
-                    <label className='text-sm font-medium block' htmlFor="status">Status</label>
+                    <Label htmlFor="pages">Páginas</Label>
+                    <Input type='number' placeholder='Digite o número de páginas' id='pages' name='pages' value={book.pages} onChange={handleChangeInput} className='mt-2' />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="currentPage">Página atual</Label>
+                    <Input type='number' placeholder='Digite a página atual' id='currentPage' name='currentPage' value={book.currentPage} onChange={handleChangeInput} className='mt-2' />
+                  </div>
+                  <div>
+                    <Label htmlFor="status">Status</Label>
                     <select id='status' name="status" value={book.status} onChange={handleChangeInput} className='mt-2 text-sm w-full p-2 rounded-md border border-zinc-200'>
                       <option value="0">Para ler</option>
                       <option value="1">Lendo</option>
@@ -197,7 +199,7 @@ function App() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className='text-sm font-medium block' htmlFor="rating">Avaliação</label>
+                    <Label htmlFor="rating">Avaliação</Label>
                     <div className='flex gap-1 mt-2'>
                       {[1, 2, 3, 4, 5].map((ratingNumber) => (
                         <Star
@@ -209,7 +211,7 @@ function App() {
                         />
                       ))}
                     </div>
-                    <input
+                    <Input
                       id='rating'
                       name='rating'
                       className='hidden'

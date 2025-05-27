@@ -1,5 +1,4 @@
 import type { ComponentProps } from 'react'
-import React from 'react'
 
 const variants = {
   primary: 'bg-black text-white hover:bg-zinc-800',
