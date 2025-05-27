@@ -2,6 +2,7 @@ import { BookOpen, CircleCheck, CircleX, Eye, Pencil, Plus, Star, Trash } from '
 import './style.css'
 import { useEffect, useState } from 'react'
 import { Modal } from '../components/Modal'
+import { Button, IconButton } from '../components/Button'
 
 type Book = {
   id: number;
@@ -224,15 +225,20 @@ function App() {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <button
+            <Button
+              variant='outlined'
+              size='small'
               type="button"
-              onClick={() => setIsOpenCreateDialog(false)}
-              className='border border-zinc-200 text-sm font-medium px-3 py-2 rounded hover:bg-zinc-200 hover:text-zinc-700 transition-colors hover:cursor-pointer'>
+              onClick={() => setIsOpenCreateDialog(false)}>
               Cancelar
-            </button>
-            <button form='create-book-form' type="submit" className='bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
+            </Button>
+            <Button
+              variant='primary'
+              size='small'
+              form='create-book-form'
+              type="submit">
               {book.id ? 'Editar' : 'Adicionar'} livro
-            </button>
+            </Button>
           </Modal.Footer>
         </Modal>
       )}
@@ -246,9 +252,12 @@ function App() {
 
             <h2 className='text-lg font-bold'>{successMessage}</h2>
             <p className='text-sm text-zinc-500'>{successDescription}</p>
-            <button onClick={() => setIsOpenSuccessDialog(false)} className='mt-4 bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
+            <Button
+              variant='primary'
+              size='small'
+              onClick={() => setIsOpenSuccessDialog(false)}>
               Fechar
-            </button>
+            </Button>
           </Modal.Body>
         </Modal>
       )}
@@ -262,9 +271,12 @@ function App() {
 
             <h2 className='text-lg font-bold'>{errorMessage}</h2>
             <p className='text-sm text-zinc-500'>{errorDescription}</p>
-            <button onClick={() => setIsOpenErrorDialog(false)} className='mt-4 bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
+            <Button
+              variant='primary'
+              size='small'
+              onClick={() => setIsOpenErrorDialog(false)}>
               Fechar
-            </button>
+            </Button>
           </Modal.Body>
         </Modal>
       )}
@@ -276,12 +288,18 @@ function App() {
             <Modal.Description>Tem certeza que deseja remover o livro {book.title}? Esta ação é irreversível!</Modal.Description>
           </Modal.Header>
           <Modal.Footer>
-            <button onClick={() => setIsOpenDeleteDialog(false)} className='border border-zinc-200 text-zinc-700 text-sm font-medium px-3 py-2 rounded hover:bg-zinc-200 hover:text-zinc-700 transition-colors hover:cursor-pointer'>
+            <Button
+              variant='outlined'
+              size='small'
+              onClick={() => setIsOpenDeleteDialog(false)}>
               Cancelar
-            </button>
-            <button onClick={() => deleteBook(book.id)} className='bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
+            </Button>
+            <Button
+              variant='primary'
+              size='small'
+              onClick={() => deleteBook(book.id)}>
               Remover livro
-            </button>
+            </Button>
           </Modal.Footer>
         </Modal>
       )}
@@ -339,9 +357,12 @@ function App() {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <button onClick={() => setIsOpenViewDialog(false)} className='mt-4 bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
+            <Button
+              variant='primary'
+              size='small'
+              onClick={() => setIsOpenViewDialog(false)}>
               Fechar
-            </button>
+            </Button>
           </Modal.Footer>
         </Modal>
       )}
@@ -352,10 +373,10 @@ function App() {
           <p className='text-zinc-500'>Gerencie sua coleção de livros</p>
         </div>
         <div>
-          <button onClick={() => openCreateBookDialog()} className='flex gap-2 items-center bg-black text-white text-sm font-medium px-4 py-2.5 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
+          <Button onClick={() => openCreateBookDialog()} className='flex gap-2 items-center'>
             <Plus strokeWidth={1.5} size={18} />
             Adicionar livro
-          </button>
+          </Button>
         </div>
       </header>
 
@@ -410,23 +431,22 @@ function App() {
                         </div>
                       </td>
                       <td className='p-4 flex justify-end gap-2'>
-                        <button onClick={() => {
+                        <IconButton onClick={() => {
                           setBook(book);
                           setIsOpenViewDialog(true);
-                        }} className='p-2 rounded-md hover:bg-zinc-200 hover:cursor-pointer transition-colors'>
+                        }}>
                           <Eye size={17}/>
-                        </button>
-                        <button onClick={() => findBook(book.id)} className='p-2 rounded-md hover:bg-zinc-200 hover:cursor-pointer transition-colors'>
+                        </IconButton>
+                        <IconButton onClick={() => findBook(book.id)}>
                           <Pencil size={17}/>
-                        </button>
-                        <button
+                        </IconButton>
+                        <IconButton
                           onClick={() => {
                             setBook(book);
                             setIsOpenDeleteDialog(true);
-                          }}
-                          className='p-2 rounded-md hover:bg-zinc-200 hover:cursor-pointer transition-colors'>
+                          }}>
                           <Trash size={17}/>
-                        </button>
+                        </IconButton>
                       </td>
                     </tr>
                   ))
