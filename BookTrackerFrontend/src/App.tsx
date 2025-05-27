@@ -270,28 +270,28 @@ function App() {
       )}
 
       {isOpenDeleteDialog && (
-        <dialog className='block top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/70 p-6 z-10 size-full'>
-          <div className='bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-md lg:w-1/2 md:w-2/3 w-full'>
-            <h2 className='text-lg font-bold'>Remover o livro {book.title}</h2>
-            <p className='text-sm text-zinc-500'>Tem certeza que deseja remover o livro {book.title}? Esta ação é irreversível!</p>
-
-            <div className='flex gap-3 justify-end mt-6'>
-              <button onClick={() => setIsOpenDeleteDialog(false)} className='border border-zinc-200 text-zinc-700 text-sm font-medium px-3 py-2 rounded hover:bg-zinc-200 hover:text-zinc-700 transition-colors hover:cursor-pointer'>
-                Cancelar
-              </button>
-              <button onClick={() => deleteBook(book.id)} className='bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
-                Remover livro
-              </button>
-            </div>
-          </div>
-        </dialog>
+        <Modal>
+          <Modal.Header>
+            <Modal.Title>Remover o livro {book.title}</Modal.Title>
+            <Modal.Description>Tem certeza que deseja remover o livro {book.title}? Esta ação é irreversível!</Modal.Description>
+          </Modal.Header>
+          <Modal.Footer>
+            <button onClick={() => setIsOpenDeleteDialog(false)} className='border border-zinc-200 text-zinc-700 text-sm font-medium px-3 py-2 rounded hover:bg-zinc-200 hover:text-zinc-700 transition-colors hover:cursor-pointer'>
+              Cancelar
+            </button>
+            <button onClick={() => deleteBook(book.id)} className='bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
+              Remover livro
+            </button>
+          </Modal.Footer>
+        </Modal>
       )}
 
       {isOpenViewDialog && (
-        <dialog className='block top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/70 p-6 z-10 size-full'>
-          <div className='bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 rounded-md lg:w-1/2 md:w-2/3 w-full'>
-            <h2 className='text-lg font-bold'>Livro {book.title}</h2>
-
+        <Modal>
+          <Modal.Header>
+            <Modal.Title>Livro {book.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             <div className="grid gap-3 mt-4">
               <div className='grid grid-cols-2 gap-2'>
                 <div className='text-sm'>
@@ -337,14 +337,13 @@ function App() {
                 </div>
               </div>
             </div>
-
-            <div className='flex justify-end mt-6'>
-              <button onClick={() => setIsOpenViewDialog(false)} className='mt-4 bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
-                Fechar
-              </button>
-            </div>
-          </div>
-        </dialog>
+          </Modal.Body>
+          <Modal.Footer>
+            <button onClick={() => setIsOpenViewDialog(false)} className='mt-4 bg-black text-white text-sm font-medium px-3 py-2 rounded hover:bg-zinc-800 transition-colors hover:cursor-pointer'>
+              Fechar
+            </button>
+          </Modal.Footer>
+        </Modal>
       )}
 
       <header className='flex justify-between items-center flex-wrap gap-4'>
