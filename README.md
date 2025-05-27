@@ -1,4 +1,4 @@
-#OBS: Por enquanto, não tive tempo de colocar o projeto em produção. Por hora, será necessário baixar as dependências e rodar localmente. Colocarei em produção algum dia dessa semana.
+# OBS: Por enquanto, não tive tempo de colocar o projeto em produção. Por hora, será necessário baixar as dependências e rodar localmente. Colocarei em produção algum dia dessa semana.
 
 # 📚 BookTracker
 
