@@ -7,6 +7,7 @@ import { Label } from '../components/Label';
 import { Input } from '../components/Input';
 import { Select } from '../components/Select';
 import { Table } from '../components/Table';
+import { Badge } from '../components/Badge';
 
 type Book = {
   id: number;
@@ -26,9 +27,9 @@ const Status: { [key: number]: string } = {
 }
 
 const StatusColors: { [key: number]: string } = {
-  0: 'bg-zinc-200',
-  1: 'bg-blue-200',
-  2: 'bg-green-200'
+  0: 'zinc',
+  1: 'blue',
+  2: 'green'
 }
 
 function App() {
@@ -343,7 +344,7 @@ function App() {
               <div className="grid grid-cols-2 gap-2">
                 <div className='text-sm'>
                   <Label className='text-zinc-500 mb-2' htmlFor='status'>Status</Label>
-                  <span className={`${StatusColors[Number(book.status)]} px-2 py-1 rounded`}>{Status[Number(book.status)]}</span>
+                  <Badge color={StatusColors[Number(book.status)]}>{Status[Number(book.status)]}</Badge>
                 </div>
 
                 <div className='text-sm'>
@@ -421,7 +422,7 @@ function App() {
                       <Table.Data>{book.pages}</Table.Data>
                       <Table.Data>{book.currentPage}</Table.Data>
                       <Table.Data>
-                        <span className={`p-2 rounded-md text-xs ${StatusColors[Number(book.status)]}`}>{Status[Number(book.status)]}</span>
+                        <Badge color={StatusColors[Number(book.status)]}>{Status[Number(book.status)]}</Badge>
                       </Table.Data>
                       <Table.Data>
                         <div className='flex gap-1'>
