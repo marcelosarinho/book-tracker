@@ -5,6 +5,7 @@ import { Modal } from '../components/Modal';
 import { Button, IconButton } from '../components/Button';
 import { Label } from '../components/Label';
 import { Input } from '../components/Input';
+import { Select } from '../components/Select';
 
 type Book = {
   id: number;
@@ -190,11 +191,11 @@ function App() {
                   </div>
                   <div>
                     <Label htmlFor="status">Status</Label>
-                    <select id='status' name="status" value={book.status} onChange={handleChangeInput} className='mt-2 text-sm w-full p-2 rounded-md border border-zinc-200'>
+                    <Select id='status' name="status" value={book.status} onChange={handleChangeInput} className='mt-2'>
                       <option value="0">Para ler</option>
                       <option value="1">Lendo</option>
                       <option value="2">Finalizado</option>
-                    </select>
+                    </Select>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -315,12 +316,12 @@ function App() {
             <div className="grid gap-3 mt-4">
               <div className='grid grid-cols-2 gap-2'>
                 <div className='text-sm'>
-                  <label className='font-medium text-zinc-500'>Autor(a)</label>
+                  <Label className='text-zinc-500' htmlFor='author'>Autor(a)</Label>
                   <p>{book.author}</p>
                 </div>
 
                 <div className='text-sm'>
-                  <label className='font-medium text-zinc-500'>Gênero</label>
+                  <Label className='text-zinc-500' htmlFor='genre'>Gênero</Label>
                   <p>{book.genre}</p>
                 </div>
               </div>
