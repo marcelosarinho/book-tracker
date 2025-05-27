@@ -328,24 +328,24 @@ function App() {
 
               <div className="grid grid-cols-2 gap-2">
                 <div className='text-sm'>
-                  <label className='font-medium text-zinc-500'>Páginas</label>
+                  <Label className='text-zinc-500' htmlFor='pages'>Páginas</Label>
                   <p>{book.pages}</p>
                 </div>
 
                 <div className='text-sm'>
-                  <label className='font-medium text-zinc-500'>Página atual</label>
+                  <Label className='text-zinc-500' htmlFor='currentPage'>Página atual</Label>
                   <p>{book.currentPage}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div className='text-sm'>
-                  <label className='mb-2 block font-medium text-zinc-500'>Status</label>
+                  <Label className='text-zinc-500' htmlFor='status'>Status</Label>
                   <span className={`${StatusColors[Number(book.status)]} px-2 py-1 rounded`}>{Status[Number(book.status)]}</span>
                 </div>
 
                 <div className='text-sm'>
-                  <label className='font-medium text-zinc-500'>Avaliação</label>
+                  <Label className='text-zinc-500' htmlFor='rating'>Avaliação</Label>
                   <div className='flex gap-1 mt-2'>
                     {[1, 2, 3, 4, 5].map((ratingNumber) => (
                       <Star
