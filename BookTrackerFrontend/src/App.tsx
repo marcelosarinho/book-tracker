@@ -183,7 +183,7 @@ function App() {
   return (
     <main className='min-h-svh lg:px-14 md:px-10 px-6 lg:py-6 md:py-4 py-2'>
       {dialogs.create && (
-        <Modal>
+        <Modal className='animate-in'>
           <Modal.Header>
             <Modal.Title>{book.id ? 'Editar Livro' : 'Adicionar Livro'}</Modal.Title>
             <Modal.Description>{book.id ? 'Edite os detalhes do livro da sua coleção.' : 'Adicione um novo livro à sua coleção.'} Preencha os detalhes abaixo.</Modal.Description>
@@ -274,7 +274,7 @@ function App() {
       )}
 
       {dialogs.success && (
-        <Modal className='text-center'>
+        <Modal className='animate-in text-center'>
           <Modal.Body>
             <div className='flex justify-center mb-4'>
               <CircleCheck stroke='#00c950' strokeWidth={2} size={100} />
@@ -294,7 +294,7 @@ function App() {
       )}
 
       {dialogs.error && (
-        <Modal className='text-center'>
+        <Modal className='animate-in text-center'>
           <Modal.Body>
             <div className='flex justify-center mb-4'>
               <CircleX stroke='#fb2c36' strokeWidth={2} size={100} />
@@ -313,7 +313,7 @@ function App() {
       )}
 
       {dialogs.delete && (
-        <Modal>
+        <Modal className='animate-in'>
           <Modal.Header>
             <Modal.Title>Remover o livro {book.title}</Modal.Title>
             <Modal.Description>Tem certeza que deseja remover o livro {book.title}? Esta ação é irreversível!</Modal.Description>
@@ -336,7 +336,7 @@ function App() {
       )}
 
       {dialogs.view && (
-        <Modal>
+        <Modal className='animate-in'>
           <Modal.Header>
             <Modal.Title>Livro {book.title}</Modal.Title>
           </Modal.Header>
