@@ -29,6 +29,16 @@ type Dialogs = {
   view: boolean;
 }
 
+type Errors = {
+  title?: string[];
+  author?: string[];
+  genre?: string[];
+  pages?: string[];
+  currentPage?: string[];
+  status?: string[];
+  rating?: string[];
+}
+
 const Status: { [key: number]: string } = {
   0: 'Para ler',
   1: 'Lendo',
@@ -60,10 +70,11 @@ function App() {
     delete: false,
     view: false,
   });
-  const [successMessage, setSuccessMessage] = useState<string>('');
-  const [successDescription, setSuccessDescription] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [errorDescription, setErrorDescription] = useState<string>('');
+  const [errors, setErrors] = useState<Errors>({});
+  const [successMessage, setSuccessMessage] = useState('');
+  const [successDescription, setSuccessDescription] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorDescription, setErrorDescription] = useState('');
 
   async function fetchBooks() {
     const response = await fetch('http://localhost:5040/api/books');
@@ -117,27 +128,56 @@ function App() {
   }
 
   function validateInputs() {
-    console.log('Validando inputs');
-
+    setErrors({});
     let valid = true;
-    const errors: { [key: string]: string } = {};
+
+    if (book.title.trim() === '') {
+      valid = false;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        title: (prevErrors.title ?? []).concat('O campo Livro é obrigatório!'),
+      }))
+    }
+
+    if (book.author.trim() === '') {
+      valid = false;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        author: (prevErrors.author ?? []).concat('O campo Autor(a) é obrigatório!'),
+      }))
+    }
+
+    if (book.genre.trim() === '') {
+      valid = false;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        genre: (prevErrors.genre ?? []).concat('O campo Gênero é obrigatório!'),
+      }))
+    }
 
     if (book.pages <= 0) {
       valid = false;
-      errors['pages'] = errors['pages'] ? errors['pages'].concat('Número de páginas deve ser maior que 0') : 'Número de páginas deve ser maior que 0';
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        pages: (prevErrors.pages ?? []).concat('Número de páginas deve ser maior que 0!'),
+      }))
     }
 
     if (book.currentPage <= 0) {
       valid = false;
-      errors['currentPage'] = errors['currentPage'] ? errors['currentPage'].concat('Página atual deve ser maior que 0') : 'Página atual deve ser maior que 0';
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        currentPage: (prevErrors.currentPage ?? []).concat('Página atual deve ser maior que 0!'),
+      }))
     }
 
-    if (book.currentPage < book.pages) {
+    if (book.currentPage > book.pages) {
       valid = false;
-      errors['currentPage'] = errors['currentPage'] ? errors['currentPage'].concat('Página atual deve ser menor ou igual ao número de páginas') : 'Página atual deve ser menor ou igual ao número de páginas';
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        currentPage: (prevErrors.currentPage ?? []).concat('Página atual deve ser menor ou igual ao número de páginas!'),
+      }))
     }
-
-    console.log(errors);
 
     return valid;
   }
@@ -226,27 +266,27 @@ function App() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="title">Livro</Label>
-                    <Input type='text' placeholder='Digite o nome do livro' id='title' name='title' value={book.title} onChange={handleChangeInput} className='mt-2' />
+                    <Input errors={errors.title} type='text' placeholder='Digite o nome do livro' id='title' name='title' value={book.title} onChange={handleChangeInput} className='mt-2' />
                   </div>
                   <div>
                     <Label htmlFor="author">Autor(a)</Label>
-                    <Input type='text' placeholder='Digite o nome do autor(a)' id='author' name='author' value={book.author} onChange={handleChangeInput} className='mt-2' />
+                    <Input errors={errors.author} type='text' placeholder='Digite o nome do autor(a)' id='author' name='author' value={book.author} onChange={handleChangeInput} className='mt-2' />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="genre">Gênero</Label>
-                    <Input type='text' placeholder='Digite o gênero do livro' id='genre' name='genre' value={book.genre} onChange={handleChangeInput} className='mt-2' />
+                    <Input errors={errors.genre} type='text' placeholder='Digite o gênero do livro' id='genre' name='genre' value={book.genre} onChange={handleChangeInput} className='mt-2' />
                   </div>
                   <div>
                     <Label htmlFor="pages">Páginas</Label>
-                    <Input min={0} type='number' placeholder='Digite o número de páginas' id='pages' name='pages' value={book.pages} onChange={handleChangeInput} className='mt-2' />
+                    <Input errors={errors.pages} min={0} type='number' placeholder='Digite o número de páginas' id='pages' name='pages' value={book.pages} onChange={handleChangeInput} className='mt-2' />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="currentPage">Página atual</Label>
-                    <Input min={0} type='number' placeholder='Digite a página atual' id='currentPage' name='currentPage' value={book.currentPage} onChange={handleChangeInput} className='mt-2' />
+                    <Input errors={errors.currentPage} min={0} type='number' placeholder='Digite a página atual' id='currentPage' name='currentPage' value={book.currentPage} onChange={handleChangeInput} className='mt-2' />
                   </div>
                   <div>
                     <Label htmlFor="status">Status</Label>
