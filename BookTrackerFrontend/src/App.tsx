@@ -121,6 +121,26 @@ function App() {
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
 
+    if (name === 'status' && value === '2') {
+      setBook((book) => ({
+        ...book,
+        currentPage: book.pages,
+        [name]: value,
+      }))
+
+      return;
+    }
+
+    if (name === 'status' && value === '0') {
+      setBook((book) => ({
+        ...book,
+        currentPage: 0,
+        [name]: value,
+      }))
+
+      return;
+    }
+
     setBook((book) => ({
       ...book,
       [name]: value,
@@ -160,14 +180,6 @@ function App() {
       setErrors((prevErrors) => ({
         ...prevErrors,
         pages: (prevErrors.pages ?? []).concat('Número de páginas deve ser maior que 0!'),
-      }))
-    }
-
-    if (book.currentPage <= 0) {
-      valid = false;
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        currentPage: (prevErrors.currentPage ?? []).concat('Página atual deve ser maior que 0!'),
       }))
     }
 
