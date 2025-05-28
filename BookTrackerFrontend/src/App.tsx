@@ -21,6 +21,14 @@ type Book = {
   rating: number;
 }
 
+type Dialogs = {
+  create: boolean;
+  success: boolean;
+  error: boolean;
+  delete: boolean;
+  view: boolean;
+}
+
 const Status: { [key: number]: string } = {
   0: 'Para ler',
   1: 'Lendo',
@@ -45,15 +53,17 @@ function App() {
     status: 0,
     rating: 0,
   });
-  const [isOpenCreateDialog, setIsOpenCreateDialog] = useState(false);
-  const [isOpenSuccessDialog, setIsOpenSuccessDialog] = useState(false);
-  const [isOpenErrorDialog, setIsOpenErrorDialog] = useState(false);
-  const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
-  const [isOpenViewDialog, setIsOpenViewDialog] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [successDescription, setSuccessDescription] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [errorDescription, setErrorDescription] = useState('');
+  const [dialogs, setDialogs] = useState<Dialogs>({
+    create: false,
+    success: false,
+    error: false,
+    delete: false,
+    view: false,
+  });
+  const [successMessage, setSuccessMessage] = useState<string>('');
+  const [successDescription, setSuccessDescription] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorDescription, setErrorDescription] = useState<string>('');
 
   async function fetchBooks() {
     const response = await fetch('http://localhost:5040/api/books');
@@ -61,16 +71,30 @@ function App() {
     setBooks(data);
   }
 
+  function openDialog(dialog: keyof Dialogs) {
+    setDialogs((prevDialogs) => ({
+      ...prevDialogs,
+      [dialog]: true,
+    }))
+  }
+
+  function closeDialog(dialog: keyof Dialogs) {
+    setDialogs((prevDialogs) => ({
+      ...prevDialogs,
+      [dialog]: false,
+    }))
+  }
+
   async function findBook(id: number) {
     const response = await fetch(`http://localhost:5040/api/books/${id}`);
     const data = await response.json();
 
     setBook(data);
-    setIsOpenCreateDialog(true);
+    openDialog('create');
   }
 
   function openCreateBookDialog() {
-    setIsOpenCreateDialog(true);
+    openDialog('create');
     setBook({
       id: 0,
       title: '',
@@ -107,17 +131,17 @@ function App() {
         body: JSON.stringify(book),
       });
 
-      setIsOpenSuccessDialog(true);
       setSuccessMessage('Livro ' + (book.id ? 'editado' : 'adicionado') + ' com sucesso!');
       setSuccessDescription('O livro ' + book.title + ' foi ' + (book.id ? 'editado' : 'adicionado') + ' na sua coleção.');
+      openDialog('success');
       fetchBooks();
     } catch (error) {
       setErrorMessage('Erro ao ' + (book.id ? 'editar' : 'adicionar') + ' livro!');
       setErrorDescription('Ocorreu um erro ao ' + (book.id ? 'editar' : 'adicionar') + ' o livro ' + book.title + ' na sua coleção.');
-      setIsOpenErrorDialog(true);
+      openDialog('error');
       console.log(error);
     } finally {
-      setIsOpenCreateDialog(false);
+      closeDialog('create');
       setBook({
         id: 0,
         title: '',
@@ -137,18 +161,18 @@ function App() {
         method: 'DELETE',
       });
 
-      setIsOpenSuccessDialog(true);
       setSuccessMessage('Livro removido com sucesso!');
       setSuccessDescription('O livro ' + book.title + ' foi removido da sua coleção.');
+      openDialog('success');
 
       fetchBooks();
     } catch (error) {
       setErrorMessage('Erro ao remover livro!');
       setErrorDescription('Ocorreu um erro ao remover o livro ' + book.title + ' da sua coleção.');
-      setIsOpenErrorDialog(true);
+      openDialog('error');
       console.log(error);
     } finally {
-      setIsOpenDeleteDialog(false);
+      closeDialog('delete');
     }
   }
 
@@ -158,7 +182,7 @@ function App() {
 
   return (
     <main className='min-h-svh lg:px-14 md:px-10 px-6 lg:py-6 md:py-4 py-2'>
-      {isOpenCreateDialog && (
+      {dialogs.create && (
         <Modal>
           <Modal.Header>
             <Modal.Title>{book.id ? 'Editar Livro' : 'Adicionar Livro'}</Modal.Title>
@@ -235,7 +259,7 @@ function App() {
               variant='outlined'
               size='small'
               type="button"
-              onClick={() => setIsOpenCreateDialog(false)}>
+              onClick={() => closeDialog('create')}>
               Cancelar
             </Button>
             <Button
@@ -249,7 +273,7 @@ function App() {
         </Modal>
       )}
 
-      {isOpenSuccessDialog && (
+      {dialogs.success && (
         <Modal className='text-center'>
           <Modal.Body>
             <div className='flex justify-center mb-4'>
@@ -262,14 +286,14 @@ function App() {
               className='mt-3'
               variant='primary'
               size='small'
-              onClick={() => setIsOpenSuccessDialog(false)}>
+              onClick={() => closeDialog('success')}>
               Fechar
             </Button>
           </Modal.Body>
         </Modal>
       )}
 
-      {isOpenErrorDialog && (
+      {dialogs.error && (
         <Modal className='text-center'>
           <Modal.Body>
             <div className='flex justify-center mb-4'>
@@ -281,14 +305,14 @@ function App() {
             <Button
               variant='primary'
               size='small'
-              onClick={() => setIsOpenErrorDialog(false)}>
+              onClick={() => closeDialog('error')}>
               Fechar
             </Button>
           </Modal.Body>
         </Modal>
       )}
 
-      {isOpenDeleteDialog && (
+      {dialogs.delete && (
         <Modal>
           <Modal.Header>
             <Modal.Title>Remover o livro {book.title}</Modal.Title>
@@ -298,7 +322,7 @@ function App() {
             <Button
               variant='outlined'
               size='small'
-              onClick={() => setIsOpenDeleteDialog(false)}>
+              onClick={() => closeDialog('delete')}>
               Cancelar
             </Button>
             <Button
@@ -311,7 +335,7 @@ function App() {
         </Modal>
       )}
 
-      {isOpenViewDialog && (
+      {dialogs.view && (
         <Modal>
           <Modal.Header>
             <Modal.Title>Livro {book.title}</Modal.Title>
@@ -367,7 +391,7 @@ function App() {
             <Button
               variant='primary'
               size='small'
-              onClick={() => setIsOpenViewDialog(false)}>
+              onClick={() => closeDialog('view')}>
               Fechar
             </Button>
           </Modal.Footer>
@@ -440,7 +464,7 @@ function App() {
                       <Table.Data className='flex justify-end gap-2'>
                         <IconButton onClick={() => {
                           setBook(book);
-                          setIsOpenViewDialog(true);
+                          openDialog('view');
                         }}>
                           <Eye size={17}/>
                         </IconButton>
@@ -450,7 +474,7 @@ function App() {
                         <IconButton
                           onClick={() => {
                             setBook(book);
-                            setIsOpenDeleteDialog(true);
+                            openDialog('delete');
                           }}>
                           <Trash size={17}/>
                         </IconButton>
