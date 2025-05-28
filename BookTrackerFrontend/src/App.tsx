@@ -116,8 +116,40 @@ function App() {
     }))
   }
 
+  function validateInputs() {
+    console.log('Validando inputs');
+
+    let valid = true;
+    const errors: { [key: string]: string } = {};
+
+    if (book.pages <= 0) {
+      valid = false;
+      errors['pages'] = errors['pages'] ? errors['pages'].concat('Número de páginas deve ser maior que 0') : 'Número de páginas deve ser maior que 0';
+    }
+
+    if (book.currentPage <= 0) {
+      valid = false;
+      errors['currentPage'] = errors['currentPage'] ? errors['currentPage'].concat('Página atual deve ser maior que 0') : 'Página atual deve ser maior que 0';
+    }
+
+    if (book.currentPage < book.pages) {
+      valid = false;
+      errors['currentPage'] = errors['currentPage'] ? errors['currentPage'].concat('Página atual deve ser menor ou igual ao número de páginas') : 'Página atual deve ser menor ou igual ao número de páginas';
+    }
+
+    console.log(errors);
+
+    return valid;
+  }
+
   async function handleSubmitBook(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const valid = validateInputs();
+
+    if (!valid) {
+      return;
+    }
 
     try {
       book.rating = Number(book.rating);
@@ -208,13 +240,13 @@ function App() {
                   </div>
                   <div>
                     <Label htmlFor="pages">Páginas</Label>
-                    <Input type='number' placeholder='Digite o número de páginas' id='pages' name='pages' value={book.pages} onChange={handleChangeInput} className='mt-2' />
+                    <Input min={0} type='number' placeholder='Digite o número de páginas' id='pages' name='pages' value={book.pages} onChange={handleChangeInput} className='mt-2' />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="currentPage">Página atual</Label>
-                    <Input type='number' placeholder='Digite a página atual' id='currentPage' name='currentPage' value={book.currentPage} onChange={handleChangeInput} className='mt-2' />
+                    <Input min={0} type='number' placeholder='Digite a página atual' id='currentPage' name='currentPage' value={book.currentPage} onChange={handleChangeInput} className='mt-2' />
                   </div>
                   <div>
                     <Label htmlFor="status">Status</Label>
