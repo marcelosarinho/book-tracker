@@ -8,6 +8,7 @@ import { Input } from '../components/Input';
 import { Select } from '../components/Select';
 import { Table } from '../components/Table';
 import { Badge } from '../components/Badge';
+import { Card } from '../components/Card';
 
 type Book = {
   id: number;
@@ -386,7 +387,7 @@ function App() {
         </div>
       </header>
 
-      <section className='mt-6 border border-zinc-200 rounded-md p-6'>
+      <Card className='mt-6'>
         <span className='flex items-center gap-2 flex-wrap'>
           <BookOpen size={20} />
           <h1 className='text-2xl font-semibold'>Coleção de livros</h1>
@@ -461,7 +462,7 @@ function App() {
             </Table>
           </div>
         </div>
-      </section>
+      </Card>
     </main>
   )
 }
